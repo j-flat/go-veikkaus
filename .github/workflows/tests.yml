@@ -1,0 +1,68 @@
+concurrency:
+  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - master
+    pull_request:
+      - master
+
+name: Run Tests
+env:
+  GO111MODULE: on
+permissions:
+  contents: read,write
+jobs:
+  test:
+    name: Run tests
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      matrix:
+        go-version: [1.x, 1.20.x]
+        platform: [ubuntu-latest]
+        include:
+          - go-version: 1.x
+            platform: ubuntu-latest
+            update-coverage: true
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+      
+      - name: Checkout source
+        uses: actions/checkout@v4
+      
+      - name: Cache paths
+        id: cache-paths
+        run: |
+          echo "go-cache=$(go env GOCACHE" >> $GITHUB_OUTPUT
+          echo "go-mod-cache=$(go env GOMODCACHE)" >> $GITHUB_OUTPUT
+
+      - name: Cache go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ steps.cache-paths.outputs.go-cache }}
+            ${{ steps.cache-paths.outputs.go-mod-cache }}
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}
+
+      - name: Run go test
+        run: |
+          if [ -n "${{ matrix.update-coverage }}" ]; then
+            script/test.sh -race -covermode atomic -coverprofile coverage.txt ./...
+            exit
+          fi
+          script/testh.sh -race -covermode atomic ./...
+
+      - name: Upload coverage to Codecov
+        if: ${{ matrix.update-coverage }}
+        uses: codecov/codecov-action@4fe8c5f003fae66aa5ebb77cfd3e7bfbbda0b6b0 #v3.1.5
+
+          
