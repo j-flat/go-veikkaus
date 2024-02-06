@@ -16,7 +16,6 @@ repos:
         args: [-over=15]
       - id: golangci-lint
       - id: go-critic
-      - id: go-build
       - id: go-mod-tidy
       - id: no-go-testing
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook

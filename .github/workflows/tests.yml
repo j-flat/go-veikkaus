@@ -3,10 +3,9 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  pull_request:
   push:
     branches:
-      - main
-    pull_request:
       - main
 
 name: Run Tests
@@ -34,6 +33,9 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
+
+      - name: Setup Ginkgo
+        run: go install github.com/onsi/ginkgo/v2/ginkgo
 
       - name: Checkout source
         uses: actions/checkout@v4
@@ -63,4 +65,10 @@ jobs:
 
       - name: Upload coverage to Codecov
         if: ${{ matrix.update-coverage }}
-        uses: codecov/codecov-action@4fe8c5f003fae66aa5ebb77cfd3e7bfbbda0b6b0 #v3.1.5
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
+          files: ./coverprofile.out
+          name: codecov-go-veikkaus
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
