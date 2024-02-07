@@ -8,7 +8,8 @@ on: [pull_request]
 env:
   GO111MODULE: on
 permissions:
-    contents: read,write
+  contents: read
+  pull-requests: write
 jobs:
     verify:
         runs-on: ubuntu-latest
@@ -28,7 +29,7 @@ jobs:
             - name: Setup Required Go Modules
               run: |
                 set -eux
-                go install github.com/onsi/ginkgo/v2/ginkgo
+                go install github.com/onsi/ginkgo/v2/ginkgo@latest
                 go install golang.org/x/tools/cmd/goimports@latest
                 go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
                 go install -v github.com/go-critic/go-critic/cmd/gocritic@latest
@@ -39,7 +40,7 @@ jobs:
             - name: Cache paths
               id: cache-paths
               run: |
-                echo "go-cache=$(go env GOCACHE" >> $GITHUB_OUTPUT
+                echo "go-cache=$(go env GOCACHE)" >> $GITHUB_OUTPUT
                 echo "go-mod-cache=$(go env GOMODCACHE)" >> $GITHUB_OUTPUT
 
             - name: Cache go modules
@@ -52,3 +53,4 @@ jobs:
                 restore-keys: ${{ runner.os }}
 
             - uses: pre-commit/action@v3.0.1
+              id: precommit
