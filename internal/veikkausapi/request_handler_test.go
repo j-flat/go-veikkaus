@@ -44,28 +44,6 @@ type TestStruct struct {
 	Valid bool
 }
 
-// type httpClient interface {
-// 	Do(req *http.Request) (*http.Response, error)
-// }
-
-// type realHTTPClient struct{}
-
-// type errorRoundTripper struct{}
-
-// func (ert *errorRoundTripper) RountTrip(req *http.Request) (*http.Response) {
-
-// }
-
-// func (c *realHTTPClient) Do(req *http.Request) (*http.Response, error) {
-// 	return http.DefaultClient.Do(req)
-// }
-
-// type mockHTTPClientError struct{}
-
-// func (c *mockHTTPClientError) Do(req *http.Request) (*http.Response, error) {
-// 	return nil, errors.New("mocked error")
-// }
-
 func getRequestBody(req *http.Request) []byte {
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
