@@ -1,0 +1,14 @@
+{
+  "name": "go-veikkaus",
+  "version": "0.0.1",
+  "description": "go-veikkaus is a Go client library for interacting with [veikkaus.fi](https://veikkaus.fi) JSON API.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "j-flat (Joni Kämppä)",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "@commitlint/cli": "^18.6.0",
+    "@commitlint/config-conventional": "^18.6.0"
+  }
+}

@@ -5,9 +5,9 @@ concurrency:
 on:
   push:
     branches:
-      - master
+      - main
     pull_request:
-      - master
+      - main
 
 name: Run Tests
 env:
@@ -34,10 +34,10 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
-      
+
       - name: Checkout source
         uses: actions/checkout@v4
-      
+
       - name: Cache paths
         id: cache-paths
         run: |
@@ -64,5 +64,3 @@ jobs:
       - name: Upload coverage to Codecov
         if: ${{ matrix.update-coverage }}
         uses: codecov/codecov-action@4fe8c5f003fae66aa5ebb77cfd3e7bfbbda0b6b0 #v3.1.5
-
-          
