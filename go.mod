@@ -1,6 +1,6 @@
 module go-veikkaus
 
-go 1.21.6
+go 1.21
 
 require (
 	github.com/onsi/ginkgo/v2 v2.15.0

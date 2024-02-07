@@ -12,7 +12,8 @@ name: Run Tests
 env:
   GO111MODULE: on
 permissions:
-  contents: read,write
+  contents: read
+  pull-requests: write
 jobs:
   test:
     name: Run tests
@@ -35,7 +36,7 @@ jobs:
           go-version: ${{ matrix.go-version }}
 
       - name: Setup Ginkgo
-        run: go install github.com/onsi/ginkgo/v2/ginkgo
+        run: go install github.com/onsi/ginkgo/v2/ginkgo@latest
 
       - name: Checkout source
         uses: actions/checkout@v4
@@ -43,7 +44,7 @@ jobs:
       - name: Cache paths
         id: cache-paths
         run: |
-          echo "go-cache=$(go env GOCACHE" >> $GITHUB_OUTPUT
+          echo "go-cache=$(go env GOCACHE)" >> $GITHUB_OUTPUT
           echo "go-mod-cache=$(go env GOMODCACHE)" >> $GITHUB_OUTPUT
 
       - name: Cache go modules
@@ -56,12 +57,18 @@ jobs:
           restore-keys: ${{ runner.os }}
 
       - name: Run go test
+        id: unit-tests
         run: |
           if [ -n "${{ matrix.update-coverage }}" ]; then
             script/test.sh -race -covermode atomic -coverprofile coverage.txt ./...
             exit
           fi
-          script/testh.sh -race -covermode atomic ./...
+          script/test.sh -race -covermode atomic ./...
+
+      - name: Debug Context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Upload coverage to Codecov
         if: ${{ matrix.update-coverage }}
