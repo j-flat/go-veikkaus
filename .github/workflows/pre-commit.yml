@@ -1,0 +1,54 @@
+name: Run pre-commit hooks
+concurrency:
+    group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+on: [pull_request]
+
+env:
+  GO111MODULE: on
+permissions:
+    contents: read,write
+jobs:
+    verify:
+        runs-on: ubuntu-latest
+        name: Verify commit
+        steps:
+            - name: Setup Go
+              uses: actions/setup-go@v5
+              with:
+                go-version: ${{ matrix.go-version }}
+
+            - name: Setup golangci-lint
+              run: |
+                set -eux
+                # binary will be $(go env GOPATH)/bin/golangci-lint
+                curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.56.0
+
+            - name: Setup Required Go Modules
+              run: |
+                set -eux
+                go install github.com/onsi/ginkgo/v2/ginkgo
+                go install golang.org/x/tools/cmd/goimports@latest
+                go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
+                go install -v github.com/go-critic/go-critic/cmd/gocritic@latest
+
+            - name: Checkout source
+              uses: actions/checkout@v4
+
+            - name: Cache paths
+              id: cache-paths
+              run: |
+                echo "go-cache=$(go env GOCACHE" >> $GITHUB_OUTPUT
+                echo "go-mod-cache=$(go env GOMODCACHE)" >> $GITHUB_OUTPUT
+
+            - name: Cache go modules
+              uses: actions/cache@v4
+              with:
+                path: |
+                    ${{ steps.cache-paths.outputs.go-cache }}
+                    ${{ steps.cache-paths.outputs.go-mod-cache }}
+                key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+                restore-keys: ${{ runner.os }}
+
+            - uses: pre-commit/action@v3.0.1
