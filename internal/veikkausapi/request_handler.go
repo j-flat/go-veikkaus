@@ -13,14 +13,14 @@ import (
 var newRequest = http.NewRequest
 
 func getRequestUrl(path string) string {
-	return fmt.Sprintf("%s/%s", VeikkausApiBaseUrl, path)
+	return fmt.Sprintf("%s%s/%s", VeikkausApiBaseUrl, VeikkausAPIVersion, path)
 }
 
 func getJsonPayload(payloadStruct interface{}) ([]byte, error) {
 	jsonPayload, err := json.Marshal(payloadStruct)
 	if err != nil {
 		fmt.Println("Error unmarshaling JSON:", err)
-		return nil, errors.New("Unable to marshal the request body to JSON")
+		return nil, errors.New("unable to marshal the request body to JSON")
 	}
 
 	return jsonPayload, nil

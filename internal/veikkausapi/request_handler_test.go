@@ -82,7 +82,7 @@ var _ = Describe("internal/veikkausapi: request-handler code", func() {
 			}
 		},
 		Entry("should format struct-type object into byte-array payload", dummyPayload, dummyPayloadBytes, false, nil),
-		Entry("should return error when JSON Marshalling fails", unprocessableStruct, nil, true, "Unable to marshal the request body to JSON"),
+		Entry("should return error when JSON Marshalling fails", unprocessableStruct, nil, true, "unable to marshal the request body to JSON"),
 	)
 	DescribeTable("validateRequestMethod",
 		func(method string, allowedMethods []string, expectError bool, expectedError string) {
@@ -200,7 +200,7 @@ var _ = Describe("internal/veikkausapi: request-handler code", func() {
 			}
 		},
 		Entry("should return payload as bytes-array when JSON-marshal is successful", dummyPayload, dummyPayloadBytes, false, nil),
-		Entry("should return error when payload cannot be processed to byte-array", unprocessableStruct, nil, true, "Could not parse struct to bytes. ERR: Unable to marshal the request body to JSON"),
+		Entry("should return error when payload cannot be processed to byte-array", unprocessableStruct, nil, true, "Could not parse struct to bytes. ERR: unable to marshal the request body to JSON"),
 	)
 	DescribeTable("GetRequest",
 		func(requestPath string, requestMethod string, requestPayload []byte, expectedRequestUrl string, expectError bool, expectedError string) {
