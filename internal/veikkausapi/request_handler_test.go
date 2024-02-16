@@ -44,28 +44,6 @@ type TestStruct struct {
 	Valid bool
 }
 
-// type httpClient interface {
-// 	Do(req *http.Request) (*http.Response, error)
-// }
-
-// type realHTTPClient struct{}
-
-// type errorRoundTripper struct{}
-
-// func (ert *errorRoundTripper) RountTrip(req *http.Request) (*http.Response) {
-
-// }
-
-// func (c *realHTTPClient) Do(req *http.Request) (*http.Response, error) {
-// 	return http.DefaultClient.Do(req)
-// }
-
-// type mockHTTPClientError struct{}
-
-// func (c *mockHTTPClientError) Do(req *http.Request) (*http.Response, error) {
-// 	return nil, errors.New("mocked error")
-// }
-
 func getRequestBody(req *http.Request) []byte {
 	body, err := io.ReadAll(req.Body)
 	if err != nil {
@@ -104,7 +82,7 @@ var _ = Describe("internal/veikkausapi: request-handler code", func() {
 			}
 		},
 		Entry("should format struct-type object into byte-array payload", dummyPayload, dummyPayloadBytes, false, nil),
-		Entry("should return error when JSON Marshalling fails", unprocessableStruct, nil, true, "Unable to marshal the request body to JSON"),
+		Entry("should return error when JSON Marshalling fails", unprocessableStruct, nil, true, "unable to marshal the request body to JSON"),
 	)
 	DescribeTable("validateRequestMethod",
 		func(method string, allowedMethods []string, expectError bool, expectedError string) {
@@ -222,7 +200,7 @@ var _ = Describe("internal/veikkausapi: request-handler code", func() {
 			}
 		},
 		Entry("should return payload as bytes-array when JSON-marshal is successful", dummyPayload, dummyPayloadBytes, false, nil),
-		Entry("should return error when payload cannot be processed to byte-array", unprocessableStruct, nil, true, "Could not parse struct to bytes. ERR: Unable to marshal the request body to JSON"),
+		Entry("should return error when payload cannot be processed to byte-array", unprocessableStruct, nil, true, "Could not parse struct to bytes. ERR: unable to marshal the request body to JSON"),
 	)
 	DescribeTable("GetRequest",
 		func(requestPath string, requestMethod string, requestPayload []byte, expectedRequestUrl string, expectError bool, expectedError string) {
