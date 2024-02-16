@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	api "go-veikkaus/internal/veikkausapi"
+	"github.com/j-flat/go-veikkaus/v0/internal/veikkausapi"
 )
 
 type SessionCookies struct {
@@ -29,14 +29,14 @@ func (s *LoginService) Login(username, password string) (LoginSuccessful, error)
 		Password: password,
 	}
 
-	body, err := api.GetJsonPayload(payloadStruct)
+	body, err := veikkausapi.GetJsonPayload(payloadStruct)
 
 	if err != nil {
 		fmt.Println("Could not get response payload:", err)
 		return nil, err
 	}
 
-	req, err := api.GetRequest(api.LoginEndpoint, api.Post, body)
+	req, err := veikkausapi.GetRequest(veikkausapi.LoginEndpoint, veikkausapi.Post, body)
 
 	if err != nil {
 		fmt.Println("Could not get request object to login to the service. Error was:", err)
@@ -50,12 +50,12 @@ func (s *LoginService) Login(username, password string) (LoginSuccessful, error)
 	}
 	defer resp.Body.Close()
 
-	if !api.ResponseCodeIsOk(resp.StatusCode) {
+	if !veikkausapi.ResponseCodeIsOk(resp.StatusCode) {
 		return nil, fmt.Errorf("API returned a non-successful response. Status Code: %d", resp.StatusCode)
 	}
 
 	var result = LoginSuccessful{}
-	err = api.HandleResponse(resp, result)
+	err = veikkausapi.HandleResponse(resp, result)
 
 	if err != nil {
 		fmt.Println("Oh no!")
