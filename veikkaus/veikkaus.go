@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/j-flat/go-veikkaus/v0/internal/veikkausapi"
+	"github.com/j-flat/go-veikkaus/internal/veikkausapi"
 )
 
 const (

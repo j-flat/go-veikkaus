@@ -1,4 +1,4 @@
-module github.com/j-flat/go-veikkaus/v0
+module github.com/j-flat/go-veikkaus
 
 go 1.21
 
