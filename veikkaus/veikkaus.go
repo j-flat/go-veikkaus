@@ -13,7 +13,7 @@ const (
 
 	// API Basic Configuration
 	defaultAPIVersion = veikkausapi.VeikkausAPIVersion
-	defaultBaseURL    = veikkausapi.VeikkausApiBaseUrl + "/" + defaultAPIVersion
+	defaultBaseURL    = veikkausapi.VeikkausApiBaseUrl + defaultAPIVersion
 	defaultUserAgent  = "go-veikkaus" + Version
 
 	// Header configurations
@@ -46,7 +46,7 @@ type Client struct {
 	common service
 
 	// Services used for interacting with different endpoints on Veikkaus API
-	Login *LoginService
+	Auth *AuthService
 }
 
 type service struct {
@@ -81,7 +81,7 @@ func (c *Client) initialize() {
 		c.UserAgent = defaultUserAgent
 	}
 	c.common.client = c
-	c.Login = (*LoginService)(&c.common)
+	c.Auth = (*AuthService)(&c.common)
 }
 
 // func (c *Client) copy() *Client {

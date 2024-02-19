@@ -19,9 +19,9 @@ type LoginPayload struct {
 
 type LoginSuccessful = map[string]interface{}
 
-type LoginService service
+type AuthService service
 
-func (s *LoginService) Login(username, password string) (LoginSuccessful, error) {
+func (s *AuthService) Login(username, password string) (LoginSuccessful, error) {
 	client := http.Client{}
 	payloadStruct := LoginPayload{
 		Type:     "STANDARD_LOGIN",
