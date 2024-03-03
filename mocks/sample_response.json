@@ -1,0 +1,142 @@
+[
+  {
+    "id": 102796510,
+    "name": "J.Cullen - Josh Rock",
+    "sportId": 49,
+    "sportName": "Darts",
+    "categoryId": 1,
+    "categoryName": "Kansainvälinen",
+    "tournamentId": 4,
+    "tournamentName": "The Masters",
+    "teams": [
+      { "id": 1454, "name": "Cullen, Joe", "shortName": "J.Cullen" },
+      { "id": 6458, "name": "Josh Rock", "shortName": "Josh Rock" }
+    ],
+    "date": 1706911200000,
+    "externalId": "46767267",
+    "hasLiveBetting": false
+  },
+  {
+    "id": 102825611,
+    "name": "Dignitas - Shopify Rebell",
+    "sportId": 76,
+    "sportName": "E-urheilu",
+    "categoryId": 1,
+    "categoryName": "Kansainvälinen",
+    "tournamentId": 7,
+    "tournamentName": "League of Legends Championship S",
+    "teams": [
+      { "id": 288, "name": "Dignitas", "shortName": "Dignitas" },
+      { "id": 5312, "name": "Shopify Rebellion", "shortName": "Shopify R" }
+    ],
+    "date": 1706911200000,
+    "externalId": "",
+    "hasLiveBetting": false
+  },
+  {
+    "id": 102796512,
+    "name": "S.Bunting - R.Smith",
+    "sportId": 49,
+    "sportName": "Darts",
+    "categoryId": 1,
+    "categoryName": "Kansainvälinen",
+    "tournamentId": 4,
+    "tournamentName": "The Masters",
+    "teams": [
+      { "id": 2164, "name": "Bunting, Stephen", "shortName": "S.Bunting" },
+      { "id": 4705, "name": "R.Smith", "shortName": "R.Smith" }
+    ],
+    "date": 1706912400000,
+    "externalId": "46767289",
+    "hasLiveBetting": false
+  },
+  {
+    "id": 102826212,
+    "name": "FlyQuest - 100 Thieves",
+    "sportId": 76,
+    "sportName": "E-urheilu",
+    "categoryId": 1,
+    "categoryName": "Kansainvälinen",
+    "tournamentId": 7,
+    "tournamentName": "League of Legends Championship S",
+    "teams": [
+      { "id": 131, "name": "FlyQuest", "shortName": "FlyQuest" },
+      { "id": 132, "name": "100 Thieves", "shortName": "100 Thiev" }
+    ],
+    "date": 1706914800000,
+    "externalId": "",
+    "hasLiveBetting": false
+  },
+  {
+    "id": 102828072,
+    "name": "Vasek Pospisil - Seongchan Hong",
+    "sportId": 77,
+    "sportName": "Tennis",
+    "categoryId": 5,
+    "categoryName": "Kansainvälinen",
+    "tournamentId": 3,
+    "tournamentName": "Davis Cup karsinta",
+    "teams": [
+      { "id": 1029, "name": "Vasek Pospisil", "shortName": "Vasek Pos" },
+      { "id": 1030, "name": "Seongchan Hong", "shortName": "Seongchan" }
+    ],
+    "date": 1706915100000,
+    "externalId": "47469659",
+    "hasLiveBetting": false
+  },
+  {
+    "id": 102828016,
+    "name": "Buffalo - Kent State Gol",
+    "sportId": 5,
+    "sportName": "Koripallo",
+    "categoryId": 2,
+    "categoryName": "USA",
+    "tournamentId": 4,
+    "tournamentName": "NCAA",
+    "teams": [
+      { "id": 296, "name": "Buffalo Bulls", "shortName": "Buffalo" },
+      {
+        "id": 437,
+        "name": "Kent State Golden Flashes",
+        "shortName": "Kent Stat"
+      }
+    ],
+    "date": 1706916960000,
+    "externalId": "44259116",
+    "hasLiveBetting": true
+  },
+  {
+    "id": 102828046,
+    "name": "James Duckwort - Quinn Vandecas",
+    "sportId": 77,
+    "sportName": "Tennis",
+    "categoryId": 4,
+    "categoryName": "Yhdysvallat",
+    "tournamentId": 7,
+    "tournamentName": "Challenger Cleveland",
+    "teams": [
+      { "id": 7231, "name": "James Duckworth", "shortName": "James Duc" },
+      { "id": 7233, "name": "Quinn Vandecasteele", "shortName": "Quinn Van" }
+    ],
+    "date": 1706917200000,
+    "externalId": "47225137",
+    "hasLiveBetting": false
+  },
+  {
+    "id": 102828103,
+    "name": "Sol de America - Sportivo Trini",
+    "sportId": 1,
+    "sportName": "Jalkapallo",
+    "categoryId": 119,
+    "categoryName": "Paraguay",
+    "tournamentId": 1,
+    "tournamentName": "Paraguayn liiga",
+    "teams": [
+      { "id": 3, "name": "Sol de America", "shortName": "Sol de Am" },
+      { "id": 148, "name": "Sportivo Trinidense", "shortName": "Sportivo " }
+    ],
+    "date": 1706917500000,
+    "externalId": "46187975",
+    "hasLiveBetting": true
+  }
+]
