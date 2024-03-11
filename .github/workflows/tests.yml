@@ -30,16 +30,22 @@ jobs:
             update-coverage: true
     runs-on: ${{ matrix.platform }}
     steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
 
       - name: Setup Ginkgo
-        run: go install github.com/onsi/ginkgo/v2/ginkgo@latest
+        run: |
+          set -eux
+          go install github.com/onsi/ginkgo/v2/ginkgo@v2.16.0
 
-      - name: Checkout source
-        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: go get -v ./...
 
       - name: Cache paths
         id: cache-paths
@@ -60,7 +66,7 @@ jobs:
         id: unit-tests
         run: |
           if [ -n "${{ matrix.update-coverage }}" ]; then
-            script/test.sh -race -covermode atomic -coverprofile coverage.txt ./...
+            script/test.sh -race -covermode atomic -coverprofile coverprofile.out  ./...
             exit
           fi
           script/test.sh -race -covermode atomic ./...

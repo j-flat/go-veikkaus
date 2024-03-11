@@ -1,0 +1,28 @@
+package types
+
+type LoginPayload struct {
+	Type     string `json:"type"`
+	User     string `json:"login"`
+	Password string `json:"password"`
+}
+
+type Team struct {
+	ID        int    `json:"id"`
+	Name      string `json:"name"`
+	ShortName string `json:"shortName"`
+}
+
+type SportEvent struct {
+	ID             int    `json:"id"`
+	Name           string `json:"name"`
+	SportID        int    `json:"sportId"`
+	SportName      string `json:"sportName"`
+	CategoryID     int    `json:"categoryId"`
+	CategoryName   string `json:"categoryName"`
+	TournamentID   int    `json:"tournamentId"`
+	TournamentName string `json:"tournamentName"`
+	Teams          []Team `json:"teams"`
+	Date           int64  `json:"date"`
+	ExternalID     string `json:"externalId"`
+	HasLiveBetting bool   `json:"hasLiveBetting"`
+}

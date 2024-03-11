@@ -4,13 +4,14 @@ const (
 	VeikkausAPIVersion         string = "v1"
 	RobotIdentifierHeaderKey   string = "X-ESA-API-KEY"
 	RobotIdentifierHeaderValue string = "ROBOT"
+	UserAgent                  string = "goveikkaus-client"
 	ContentType                string = "application/json"
 	Accept                     string = "application/json"
-	VeikkausApiBaseUrl         string = "https://www.veikkaus.fi/api/bff/"
-	LoginEndpoint              string = "/sessions"
-	Post                       string = "POST"
-	Get                        string = "GET"
-	Put                        string = "PUT"
-	HttpOk                     int    = 200
-	HttpMultipleChoices        int    = 300
+	// BaseURL                    string = "https://www.veikkaus.fi"
+	VeikkausAPIBaseURL string = "api/bff/"
+	LoginEndpoint      string = "sessions"
+	SessionTimeout     int    = 1800
 )
+
+var BaseURL string = "https://www.veikkaus.fi"
+var OverWriteBaseURL bool = false

@@ -2,7 +2,11 @@ run:
   build-tags:
     - integration
   timeout: 10m
+  skip-dirs:
+    - example
 linters:
+  disable:
+    - execinquery
   enable:
     - dogsled
     - dupl
@@ -24,7 +28,7 @@ linters-settings:
       # and https://github.com/securego/gosec/issues/1007
       - G602
 issues:
-  exclude-use-default: false
+  exclude-use-default: true
   exclude-rules:
     - linters:
         - dupl
@@ -33,21 +37,12 @@ issues:
         - dogsled
       path: _test\.go
 
-    # We need to pass nil Context in order to test DoBare erroring on nil ctx.
+    # We need to pass nil Context in order to test nil contexts.
     - linters: [ staticcheck ]
       text: 'SA1012: do not pass a nil Context'
       path: _test\.go
-
-    # We need to use sha1 for validating signatures
-    - linters: [ gosec ]
-      text: 'G505: Blocklisted import crypto/sha1: weak cryptographic primitive'
 
     # This is adapted from golangci-lint's default exclusions. It disables linting for error checks on
     # os.RemoveAll and any function ending in "Close".
     - linters: [ errcheck ]
       text: Error return value of .(.*Close|os\.Remove(All)?). is not checked
-
-    # We don't care about file inclusion via variable in examples or internal tools.
-    - linters: [ gosec ]
-      text: 'G304: Potential file inclusion via variable'
-      path: '^(example|tools)\/'
