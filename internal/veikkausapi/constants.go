@@ -8,10 +8,9 @@ const (
 	ContentType                string = "application/json"
 	Accept                     string = "application/json"
 	// BaseURL                    string = "https://www.veikkaus.fi"
-	VeikkausAPIBaseURL string = "api/bff/"
-	LoginEndpoint      string = "sessions"
+	LoginEndpoint          string = "bff/v1/sessions"
+	AccountBalanceEndpoint string = "v1/players/self/account"
 )
 
 var SessionTimeoutSeconds int = 1800
-var BaseURL string = "https://www.veikkaus.fi"
-var OverWriteBaseURL bool = false
+var BaseURL string = "https://www.veikkaus.fi/api/"

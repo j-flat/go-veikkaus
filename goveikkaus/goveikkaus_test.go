@@ -47,7 +47,7 @@ var _ = Describe("goveikkaus", func() {
 			newClient := NewClient(nil)
 			client := NewClient(nil)
 
-			Expect(newClient.BaseURL.String()).To(Equal(api.GetBaseURL()))
+			Expect(newClient.BaseURL.String()).To(Equal(api.BaseURL))
 			Expect(newClient.UserAgent).To(Equal(api.UserAgent))
 			Expect(newClient.client).NotTo(Equal(client))
 		})

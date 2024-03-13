@@ -39,17 +39,15 @@ func getInputValidationErrorBytes() []byte {
 	return bytes
 }
 
-var _ = Describe("auth login: authservice login", func() {
+var _ = Describe("authservice: login", func() {
 	var username = "johndoe"
 	var password = "verysecret"
 	var sucessfulRequestBytes = []byte(`{}`)
 	var unknownErrorBytes = []byte(`{"code": "UNKNOWN", "fieldErrors": []}`)
 	var unauthorizedErrorBytes = []byte(`{"code":"NOT_AUTHENTICATED", "fieldErrors":[]}`)
-	// var unsupportedErrorResposeBytes = []byte(`{"errorcode":"NOT_AUTHENTICATED", "fieldError":""}`)
 
 	var client *Client
 	var mux *http.ServeMux
-	// var serverURL string
 	var teardown func()
 
 	BeforeEach(func() {
