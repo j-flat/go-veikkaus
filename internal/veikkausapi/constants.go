@@ -10,8 +10,8 @@ const (
 	// BaseURL                    string = "https://www.veikkaus.fi"
 	VeikkausAPIBaseURL string = "api/bff/"
 	LoginEndpoint      string = "sessions"
-	SessionTimeout     int    = 1800
 )
 
+var SessionTimeoutSeconds int = 1800
 var BaseURL string = "https://www.veikkaus.fi"
 var OverWriteBaseURL bool = false

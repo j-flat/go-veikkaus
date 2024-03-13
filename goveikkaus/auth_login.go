@@ -32,7 +32,7 @@ func (s *AuthService) Login(ctx context.Context, username, password string) (*Lo
 
 	defer resp.Body.Close()
 
-	// Store session timeout information on context
+	// Store session timeout information and logged in state to client
 	s.apiClient.SessionTimeout = getSessionTimeout()
 
 	// Veikkaus API Returns empty JSON-response, no need to parse it to an empty object

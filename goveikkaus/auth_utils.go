@@ -2,14 +2,18 @@ package goveikkaus
 
 import (
 	"time"
+
+	api "github.com/j-flat/go-veikkaus/internal/veikkausapi"
 )
 
-const HalfHourInSeconds = 1800
+func (s *AuthService) AuthSessionIsActive() bool {
+	return time.Now().Before(s.apiClient.SessionTimeout)
+}
 
 func getSessionTimeout() time.Time {
 	currentTime := time.Now()
-
-	sessionTimeoutTime := currentTime.Add(HalfHourInSeconds * time.Second)
+	duration := time.Duration(api.SessionTimeoutSeconds)
+	sessionTimeoutTime := currentTime.Add(duration * time.Second)
 
 	return sessionTimeoutTime
 }
