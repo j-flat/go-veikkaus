@@ -77,6 +77,15 @@ var _ = Describe("goveikkaus", func() {
 			Expect(err).To(BeNil())
 		})
 	})
+	DescribeTable("isAuthorizedCall",
+		func(optionalBoolParams []bool, expectedResult bool) {
+			Expect(isAuthorizedCall(optionalBoolParams)).To(Equal(expectedResult))
+		},
+		Entry("should return true when first element is true", []bool{true}, true),
+		Entry("should return false when first element is false (not used / needed in practice but test-coverage is added)", []bool{false, true}, false),
+		Entry("should return first boolean value when more values are passed", []bool{true, false, true}, true),
+		Entry("should return false when boolean-array is nil / empty", nil, false),
+	)
 	Describe("do", func() {
 		It(fmt.Sprintf("Can do bare HTTP-request to %s", serverURL), func() {
 			expectedBody := "dummy response"
@@ -172,6 +181,26 @@ var _ = Describe("goveikkaus", func() {
 
 			Expect(resp).To(BeNil())
 			Expect(err).To(BeAssignableToTypeOf(&api.UnauthorizedError{}))
+		})
+		It("returns error when user is not logged in for authorized call", func() {
+			errorResponse := []byte(`{"code":"NOT_AUTHENTICATED", "fieldErrors":[]}`)
+
+			mux.HandleFunc("/youshallnotpass", func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusUnauthorized)
+				if _, err := w.Write(errorResponse); err != nil {
+					log.Fatalf("could not write response-body in unit-test: %v", err)
+				}
+			})
+
+			req, err := api.GetRequest("youshallnotpass", "GET", nil)
+			Expect(err).To(BeNil())
+
+			ctx := context.Background()
+			isAuthorized := true
+			resp, err := client.do(ctx, req, isAuthorized)
+
+			Expect(resp).To(BeNil())
+			Expect(err).To(BeAssignableToTypeOf(&api.UserNotLoggedInError{}))
 		})
 	})
 	Describe("Do", func() {

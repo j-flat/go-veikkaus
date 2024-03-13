@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	Version = "v0.1.0"
+	Version = "v0.2.0"
 )
 
 var errNonNilContext = errors.New("context must be non-nil")
@@ -37,6 +37,10 @@ type Client struct {
 
 	// Services used for interacting with different endpoints on Veikkaus API
 	Auth *AuthService
+}
+
+func (veikkausClient *Client) UserIsLoggedIn() bool {
+	return veikkausClient.Auth.AuthSessionIsActive()
 }
 
 func (veikkausClient *Client) Client() *http.Client {
@@ -73,6 +77,7 @@ func (veikkausClient *Client) initialize() {
 	if veikkausClient.UserAgent == "" {
 		veikkausClient.UserAgent = api.UserAgent
 	}
+
 	veikkausClient.common.apiClient = veikkausClient
 	veikkausClient.Auth = (*AuthService)(&veikkausClient.common)
 }
@@ -91,9 +96,22 @@ func isContextOrURLError(ctx context.Context, err error) error {
 	return nil
 }
 
-func (veikkausClient *Client) do(ctx context.Context, req *http.Request) (*http.Response, error) {
+func isAuthorizedCall(isAuthorizedCall []bool) bool {
+	authorizedCall := false
+	if len(isAuthorizedCall) > 0 {
+		authorizedCall = isAuthorizedCall[0]
+	}
+
+	return authorizedCall
+}
+
+func (veikkausClient *Client) do(ctx context.Context, req *http.Request, authorizedCall ...bool) (*http.Response, error) {
 	if ctx == nil {
 		return nil, errNonNilContext
+	}
+
+	if isAuthorizedCall(authorizedCall) && !veikkausClient.UserIsLoggedIn() {
+		return nil, &api.UserNotLoggedInError{}
 	}
 
 	req = api.WithContext(ctx, req)
