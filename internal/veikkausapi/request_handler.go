@@ -41,16 +41,8 @@ func (rc *RequestCookies) IsAuthenticated(url *url.URL) bool {
 // Unit-Test purposes
 var newRequest = http.NewRequest
 
-func GetBaseURL() string {
-	if !OverWriteBaseURL {
-		return BaseURL + "/" + VeikkausAPIBaseURL + VeikkausAPIVersion + "/"
-	} else {
-		return BaseURL
-	}
-}
-
 func getRequestURL(path string) string {
-	return GetBaseURL() + path
+	return BaseURL + path
 }
 
 func setRequestHeaders(req *http.Request) *http.Request {

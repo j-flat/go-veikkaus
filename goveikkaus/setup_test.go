@@ -33,7 +33,6 @@ func setup() (client *Client, mux *http.ServeMux, serverURL string, teardown fun
 	url, _ := url.Parse(server.URL + baseURLPath + "/")
 
 	// Overwrite BaseURL variable on internal/veikkausapi
-	api.OverWriteBaseURL = true
 	api.BaseURL = url.String()
 
 	client = NewClient(nil)

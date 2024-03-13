@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	Version = "v0.2.0"
+	Version = "v0.3.0"
 )
 
 var errNonNilContext = errors.New("context must be non-nil")
@@ -72,7 +72,7 @@ func (veikkausClient *Client) initialize() {
 		}
 	}
 	if veikkausClient.BaseURL == nil {
-		veikkausClient.BaseURL, _ = url.Parse(api.GetBaseURL())
+		veikkausClient.BaseURL, _ = url.Parse(api.BaseURL)
 	}
 	if veikkausClient.UserAgent == "" {
 		veikkausClient.UserAgent = api.UserAgent

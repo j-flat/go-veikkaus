@@ -86,8 +86,8 @@ func getRequestBody(req *http.Request) []byte {
 
 var _ = Describe("internal/veikkausapi: request-handler code", func() {
 	Describe("getRequestUrl", func() {
-		It(fmt.Sprintf("should return request url with '%s' as base-url and given path", VeikkausAPIBaseURL), func() {
-			Expect(getRequestURL("sessions")).To(Equal(ExpectedLoginURL))
+		It(fmt.Sprintf("should return request url with '%s' as base-url and given path", BaseURL), func() {
+			Expect(getRequestURL("bff/v1/sessions")).To(Equal(ExpectedLoginURL))
 		})
 	})
 	Describe("setRequestHeaders", func() {
@@ -111,18 +111,6 @@ var _ = Describe("internal/veikkausapi: request-handler code", func() {
 			WithContext(ctx, req)
 			Expect(req.Context()).NotTo(BeNil())
 			Expect(req.Context()).To(BeEquivalentTo(context.TODO()))
-		})
-	})
-	Describe("GetBaseURL", func() {
-		It("should return overwritten base-url when needed", func() {
-			overwrittenBaseURL := "http://localhost:80808"
-			OverWriteBaseURL = true
-			originalBaseURL := BaseURL
-			BaseURL = overwrittenBaseURL
-
-			Expect(GetBaseURL()).To(Equal(overwrittenBaseURL))
-			OverWriteBaseURL = false
-			BaseURL = originalBaseURL
 		})
 	})
 	DescribeTable("validateRequestMethod",
@@ -255,9 +243,9 @@ var _ = Describe("internal/veikkausapi: request-handler code", func() {
 				Expect(req.URL.String()).To(Equal(expectedRequestUrl))
 			}
 		},
-		Entry("should return 'GET'-request with valid parameters", "hello", "GET", nil, "https://www.veikkaus.fi/api/bff/v1/hello", false, nil),
-		Entry("should return 'POST'-request with valid parameters", "bar", "POST", dummyPayloadBytes, "https://www.veikkaus.fi/api/bff/v1/bar", false, nil),
-		Entry("should return 'PUT'-request with valid parameters", "foo/bar/baz", "PUT", dummyPayloadBytes, "https://www.veikkaus.fi/api/bff/v1/foo/bar/baz", false, nil),
+		Entry("should return 'GET'-request with valid parameters", "hello", "GET", nil, "https://www.veikkaus.fi/api/hello", false, nil),
+		Entry("should return 'POST'-request with valid parameters", "v2/bar", "POST", dummyPayloadBytes, "https://www.veikkaus.fi/api/v2/bar", false, nil),
+		Entry("should return 'PUT'-request with valid parameters", "foo/bar/baz", "PUT", dummyPayloadBytes, "https://www.veikkaus.fi/api/foo/bar/baz", false, nil),
 		Entry("should return error for invalid 'POST'-request", "irrelevant", "POST", invalidPayloadBytes, nil, true, "payload bytes were expected, received nil"),
 		Entry("should return error for invalid 'PUT'-request", "/", "PUT", invalidPayloadBytes, nil, true, "payload bytes were expected, received nil"),
 	)

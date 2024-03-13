@@ -40,7 +40,7 @@ func getDummyCookies() []*http.Cookie {
 	return dummyCokies
 }
 
-var _ = Describe("auth logout: authservice logout", func() {
+var _ = Describe("authservice: logout", func() {
 	var url *url.URL
 
 	BeforeEach(func() {
