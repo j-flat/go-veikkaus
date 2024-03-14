@@ -1,4 +1,6 @@
 # go-veikkaus
+
+[![go-veikkaus release (latest SemVer)](https://img.shields.io/github/v/release/j-flat/go-veikkaus?sort=semver)](https://github.com/j-flat/go-veikkaus/releases)
 [![Run Tests](https://github.com/j-flat/go-veikkaus/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/j-flat/go-veikkaus/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/j-flat/go-veikkaus/graph/badge.svg?token=B2WSO7VFH7)](https://codecov.io/gh/j-flat/go-veikkaus)
 
@@ -6,13 +8,17 @@ go-veikkaus is a Go client library for interacting with [veikkaus.fi](https://ve
 
 Currently **it is recommended to use minimum Go version 1.21 or greater**-
 
-## How to get
+## Installation
 
-FIXME:
+`go-veikkaus` is implemented with go version 1.22 in mind, and is highly recommended to be used with the same version or newer. Get it with:
+
+```shell
+go get github.com/j-flat/go-veikkaus
+```
 
 ## Usage ##
 
-TODO:
+Until more comprehensive README, check [examples](./example/) for the currently implemented features.
 
 ## License ##
 
