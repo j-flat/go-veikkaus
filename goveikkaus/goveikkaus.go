@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	Version = "v0.3.0"
+	Version = "v0.4.0"
 )
 
 var errNonNilContext = errors.New("context must be non-nil")
@@ -36,7 +36,8 @@ type Client struct {
 	SessionTimeout time.Time
 
 	// Services used for interacting with different endpoints on Veikkaus API
-	Auth *AuthService
+	Auth     *AuthService
+	Glossary *GlossaryService
 }
 
 func (veikkausClient *Client) UserIsLoggedIn() bool {
@@ -80,6 +81,7 @@ func (veikkausClient *Client) initialize() {
 
 	veikkausClient.common.apiClient = veikkausClient
 	veikkausClient.Auth = (*AuthService)(&veikkausClient.common)
+	veikkausClient.Glossary = (*GlossaryService)(&veikkausClient.common)
 }
 
 func isContextOrURLError(ctx context.Context, err error) error {
