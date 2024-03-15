@@ -3,10 +3,6 @@ package goveikkaus
 // Service type: Auth
 type AuthService service
 
-type SessionCookies struct {
-	JSessionID string `json:"JSESSIONID"`
-}
-
 // Request Payload Types for AuthService Endpoints
 type LoginPayload struct {
 	Type     string `json:"type"`
