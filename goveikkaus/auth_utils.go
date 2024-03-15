@@ -13,6 +13,7 @@ func (s *AuthService) AuthSessionIsActive() bool {
 func getSessionTimeout() time.Time {
 	currentTime := time.Now()
 	duration := time.Duration(api.SessionTimeoutSeconds)
+	// Sesssion length is shown https://github.com/VeikkausOy/sport-games-robot/issues/160
 	sessionTimeoutTime := currentTime.Add(duration * time.Second)
 
 	return sessionTimeoutTime
